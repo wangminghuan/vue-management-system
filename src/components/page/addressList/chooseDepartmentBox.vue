@@ -1,0 +1,199 @@
+<template :key="randomNum">
+<el-dialog
+    title="选择部门"
+    :visible.sync="chooseDepartments"
+    width="800px"
+    :show-close="false"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+    center>
+    <!-- :before-close="handleClose" -->
+    <div class="choose-department-wrap clearfix">
+        <div class="left-wrap">
+            <slot name="left-name"></slot>
+            <div class="left-box">
+                <el-input
+                placeholder="输入关键字进行过滤"
+                suffix-icon="el-icon-search"
+                v-model="filterText">
+                </el-input>
+                <el-tree
+                :default-checked-keys="defaultArr"
+                class="filter-tree"
+                show-checkbox
+                :data="chooseData"
+                node-key="id"
+                @check-change="handleCheckChange"
+                :expand-on-click-node="true"
+                :check-strictly="true"
+                default-expand-all
+                :filter-node-method="filterNode"
+                ref="tree2">
+                </el-tree>
+            </div>
+        </div>
+        <div class="right-wrap">
+            <slot name="right-name"></slot>
+            <ul class="right-box">
+                <li v-for="(item, index) in selectArr" :key="index">{{item.label}}<i class="el-icon-close" @click="deleteDepart(index)"></i></li>
+            </ul>
+        </div>
+    </div>
+    <span slot="footer" class="dialog-footer">
+        <el-button @click="close">取 消</el-button>
+        <el-button type="primary" @click="sure">确 定</el-button>
+    </span>
+</el-dialog>
+</template>
+
+<script>
+export default {
+    props: ['chooseDepartments','chooseData','defaultCheckArr'],
+    methods: {
+        close (){   //取消,关闭弹框
+            this.$emit('closeChooseDepartment',false);
+            // __vBus.departmentAdjustArr.length = 0;
+            __vBus.departmentAdjust = '';
+            __vBus.departmentAdjust = '';
+            this.$refs.tree2.setCheckedKeys([]);
+        },
+        sure (){    //确定,选定部门,关闭弹框
+            let arr = [];
+            this.selectArr.forEach((e,i)=>{
+                arr.push(e.id);
+            });
+            if (__vBus.departmentAdjustArr.length > 0 || __vBus.departmentAdjust){
+                this.$axios.post('/api/member/member/moveSection',{
+                    mid: __vBus.departmentAdjustArr.length > 0 ? __vBus.departmentAdjustArr : __vBus.departmentAdjust,
+                    cid: __golbal_cid,
+                    sids: arr.join(',')
+                }).then((res)=>{
+                    if (res.data.code == 0){
+                        this.$emit('closeChooseDepartment',[]);
+                        this.$message({
+                            type:'success',
+                            message: '调整部门成功~'
+                        });
+                        this.$emit('adjustUpload');
+                    }else{
+                        this.$message.error(res.data.message);
+                    }
+                }).catch((error)=>{
+                    console.log(error);
+                });
+            }else{
+                // console.log(this.selectArr);
+                this.$emit('closeChooseDepartment',this.selectArr);
+            }
+                
+        },
+        filterNode(value,data) {    //过滤节点,显示筛选结果
+            if (!value) return true;
+            return data.label.indexOf(value) !== -1;
+        },
+        handleCheckChange(){   //选中之后,将选中的数组赋值给selectArr,再交由右边进行列表渲染
+            this.selectArr = this.$refs.tree2.getCheckedNodes();
+        },
+        deleteDepart(i){   //右边删除所选项
+            this.selectArr.splice(i,1);
+            this.$refs.tree2.setCheckedNodes(this.selectArr);
+        },
+        
+    },
+    data (){
+        return {
+            selectArr: [],   //已经选中的选项,主要用来渲染右边的数据
+            filterText: '',     //过滤的文案
+            randomNum: Math.random()
+        }
+    },
+    watch: {
+        filterText(val){
+            this.$refs.tree2.filter(val);
+        },
+        defaultCheckArr: function (val){      //用来显示右边选中结构的内容框
+            this.selectArr = val;
+        },
+        chooseDepartments(val){
+            if (this.defaultArr.length <= 0){
+                try {
+                    this.$refs.tree2.setCheckedKeys([]);
+                } catch (error) {
+                    console.log(error);
+                }
+            }else{
+                try {
+                    // console.log(this.defaultCheckArr);
+                    this.$refs.tree2.setCheckedKeys(this.defaultArr);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+    },
+    computed:{
+        defaultArr: function(){      //用来默认选中树形结构中的选项
+            try {
+                let arr = [];
+                if (this.selectArr.length > 0){
+                    this.selectArr.forEach((e,i)=>{
+                        arr.push(e.id);
+                    });
+                }
+                return arr;
+            } catch (error) {
+                return this.selectArr;
+            }
+        }
+    },
+
+}
+</script>
+
+
+<style lang="scss" scoped>
+.choose-department-wrap{
+    .left-wrap,.right-wrap{
+        width: 45%;
+        float: left;
+    }
+    .left-wrap{
+        margin-right: 5%;
+        .left-box{
+            height: 400px;
+            border: 1px solid #eee;
+            padding: 15px;
+            overflow: scroll;
+        }
+    }
+    .right-wrap{
+        margin-left: 5%;
+        .right-box{
+            height: 400px;
+            border: 1px solid #eee;
+            padding: 15px;
+            overflow: scroll;
+            li{
+                i{
+                    cursor: pointer;
+                    float: right;
+                    margin-right: 15px;
+                    font-size: 18px;
+                    margin-top: 3px;
+                }
+            }
+            & li:hover{
+                background-color: #eee;
+            }
+        }
+    }
+}
+</style>
+<style>
+.choose-department-wrap .is-current.is-current.is-current > .el-tree-node__content{
+    background-color: #fff;
+}
+
+</style>
+
+
