@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import pages from '@/components/config/page.js';
-import asyncRouter from "@/components/config/asyncRouter.js";
 export default {
   data: function () {
     return {
@@ -60,8 +58,14 @@ export default {
         if (valid) {
           localStorage.setItem('ms_username', this.ruleForm.username);
           sessionStorage.setItem('__TOKEN__', new Date().getTime());
-          asyncRouter();
-          this.$router.push('/app');
+          this.$store.dispatch("getPremission").then((data)=>{
+            this.$router.addRoutes(data);
+            this.$router.push('/app/home');
+          }).catch(()=>{
+            this.$message.error("获取权限失败，请重新登录")
+          })
+          
+          
         } else {
           console.log('error submit!!');
           return false;

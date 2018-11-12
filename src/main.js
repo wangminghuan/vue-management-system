@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import store from './store';
+import "./router/guards"; //导航守卫
 import Http from './utils/http';
 import filters from "./filters";
 import mixins from "./mixin";
@@ -19,5 +21,6 @@ Object.keys(filters).forEach(key => {
 })
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app');

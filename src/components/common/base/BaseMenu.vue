@@ -58,47 +58,7 @@ export default {
   },
   data () {
     return {
-      items: [
-        {
-          icon: 'el-icon-tickets',
-          index: 'app/home',
-          title: '系统首页'
-        },
-        {
-          icon: 'el-icon-tickets',
-          index: 'app/baseTable',
-          title: '基础表格'
-        },
-        {
-          icon: 'el-icon-tickets',
-          title: '表单相关',
-          index:'baseForm',
-          subs: [{
-              index: 'app/baseForm',
-              title: '基本表单'
-            },
-            {
-              title: '三级菜单',
-              index:'baseFormThree',
-              subs: [
-                {
-                  index: 'app/vueEditor',
-                  title: '富文本编辑器'
-                },
-                {
-                  index: 'app/markDown',
-                  title: 'markdown编辑器'
-                },
-              ]
-            }
-          ]
-        },
-        {
-          icon: 'el-icon-tickets',
-          index: 'app/option',
-          title: '基础设置'
-        }
-      ]
+      items: this.$store.state.menu.userMenu
     }
   },
   computed: {

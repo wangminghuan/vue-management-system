@@ -1,66 +1,70 @@
-expopt default [
+
+export default [
 {
   pid:0,
   id:10,
-  marker:"M_INDEX",
+  marker:"P_HOME",
   icon: 'el-icon-tickets',
-  index: 'app/home',
-  title: '系统首页'
+  path: 'app/home',
+  name: '系统首页',
+  isMenu:true,
+  component:"Home"
 },
 {
   pid:0,
   id:20,
+  marker:"P_BASE_TABLE",
   icon: 'el-icon-tickets',
-  index: 'app/baseTable',
-  title: '基础表格'
+  path: 'app/baseTable',
+  name: '基础表格',
+  isMenu:true,
+  component:"BaseTable"
 },
 {
   pid:0,
   id:30,
+  marker:"M_FORM",
   icon: 'el-icon-tickets',
-  index: 'app/baseForm',
-  title: '基本表单'
+  path:'',
+  name: '表单相关',
+  isMenu:true,
 },
 {
-  pid:0,
-  id:30,
+  pid:30,
+  id:3001,
+  marker:"P_BASE_FORM",
   icon: 'el-icon-tickets',
-  index: 'app/baseForm',
-  title: '基本表单'
+  path:'app/baseForm',
+  name: '基本表单',
+  isMenu:true,
 },
 {
-  pid:0,
-  id:30,
+  pid:30,
+  id:3002,
+  marker:"M_Three",
   icon: 'el-icon-tickets',
-  index: 'app/baseForm',
-  title: '基本表单'
+  path:'',
+  name: '三级菜单',
+  isMenu:true,
 },
 {
-  pid:0,
-  id:30,
+  pid:3002,
+  id:300201,
+  marker:"P_VUEEDITOR",
   icon: 'el-icon-tickets',
-  index: 'app/baseForm',
-  title: '基本表单'
+  path:'app/vueEditor',
+  name: '富文本编辑器',
+  isMenu:true,
+  component:"VueEditor"
 },
 {
-  pid:0,
-  id:30,
+  pid:3002,
+  id:300202,
+  marker:"P_MARKDOWN",
   icon: 'el-icon-tickets',
-  index: 'app/baseForm',
-  title: '基本表单'
-},
-{
-  pid:0,
-  id:40,
-  icon: 'el-icon-tickets',
-  index: 'app/baseForm',
-  title: '基本表单'
-},
-{
-  pid:0,
-  id:40,
-  icon: 'el-icon-tickets',
-  index: 'app/option',
-  title: '基础设置'
+  path:'app/markDown',
+  name: 'markdown编辑器',
+  isMenu:true,
+  component:"MarkDown"
 }
-];
+]
