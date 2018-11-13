@@ -25,7 +25,7 @@ export default [
   id:30,
   marker:"M_FORM",
   icon: 'el-icon-tickets',
-  path:'',
+  path:'M_FORM',
   name: '表单相关',
   isMenu:true,
 },
@@ -37,13 +37,14 @@ export default [
   path:'app/baseForm',
   name: '基本表单',
   isMenu:true,
+  component:"BaseForm"
 },
 {
   pid:30,
   id:3002,
   marker:"M_Three",
   icon: 'el-icon-tickets',
-  path:'',
+  path:'M_Three',
   name: '三级菜单',
   isMenu:true,
 },
@@ -54,7 +55,7 @@ export default [
   icon: 'el-icon-tickets',
   path:'app/vueEditor',
   name: '富文本编辑器',
-  isMenu:true,
+  isMenu:false,
   component:"VueEditor"
 },
 {
@@ -64,7 +65,7 @@ export default [
   icon: 'el-icon-tickets',
   path:'app/markDown',
   name: 'markdown编辑器',
-  isMenu:true,
+  isMenu:false,
   component:"MarkDown"
 }
 ]

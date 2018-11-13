@@ -8,7 +8,7 @@
     <el-container>
       <el-aside class="side-wrap"
                 :width="sideWidth">
-        <base-menu :collapse="collapse"></base-menu>
+        <base-menu :collapse="collapse" ></base-menu>
       </el-aside>
       <el-main class="container-main">
         <div class="container-inner">
@@ -77,12 +77,45 @@ export default {
   background-color: #fff;
  
 }
+.container-main::-webkit-scrollbar {/*滚动条整体样式*/
+      width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+      height: 0px;
+  }
+  .container-main::-moz-scrollbar {/*滚动条整体样式*/
+      width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+      height: 0px;
+  }
+  .container-main::-ms-scrollbar {/*滚动条整体样式*/
+      width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+      height: 0px;
+  }
+  .container-main::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+      border-radius: 5px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.2);
+  }
+  .container-main::-webkit-scrollbar-track {/*滚动条里面轨道*/
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+      border-radius: 0;
+      background: rgba(0,0,0,0.1);
+  }
+   .side-wrap::-webkit-scrollbar {/*滚动条整体样式*/
+      width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+      height: 0px;
+  }
+  .side-wrap::-moz-scrollbar {/*滚动条整体样式*/
+      width: 0px;     /*高宽分别对应横竖滚动条的尺寸*/
+      height: 0px;
+  }
+
+
 /* .container-inner{
   height: 400px;
 } */
 .side-wrap {
   background: #324157;
   transition: width 0.5s ease-in-out;
-  position: relative;
+  /* position: relative;
+  overflow:hidden; */
 }
 </style>

@@ -60,21 +60,17 @@ export default {
           sessionStorage.setItem('__TOKEN__', new Date().getTime());
           this.$store.dispatch("getPremission").then((data)=>{
             this.$router.addRoutes(data);
-            this.$router.push('/app/home');
-          }).catch(()=>{
+            this.$router.push('/app');
+          }).catch((err)=>{
+            console.log(err)
             this.$message.error("获取权限失败，请重新登录")
           })
-          
-          
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     }
-  },
-  beforeCreate(){
-    sessionStorage.removeItem('__TOKEN__');
   }
 }
 </script>
