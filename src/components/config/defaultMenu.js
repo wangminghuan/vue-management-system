@@ -55,7 +55,7 @@ export default [
   icon: 'el-icon-tickets',
   path:'app/vueEditor',
   name: '富文本编辑器',
-  isMenu:false,
+  isMenu:true,
   component:"VueEditor"
 },
 {
@@ -65,7 +65,7 @@ export default [
   icon: 'el-icon-tickets',
   path:'app/markDown',
   name: 'markdown编辑器',
-  isMenu:false,
+  isMenu:true,
   component:"MarkDown"
 }
 ]

@@ -14,6 +14,7 @@
     "element-ui": "^2.4.9",
     "mavon-editor": "^2.5.4",
     "node-sass": "^4.10.0",
+    "npm": "^6.4.1",
     "qs": "^6.5.2",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.16",
